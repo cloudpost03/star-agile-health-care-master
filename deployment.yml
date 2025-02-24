@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: medicure-deployment
+  labels:
+    app: medicure
+spec:
+  replicas: 3  # Set the desired number of replicas
+  selector:
+    matchLabels:
+      app: medicure
+  template:
+    metadata:
+      labels:
+        app: medicure
+    spec:
+      containers:
+        - name: medicure-container
+          image: pravinkr11/medicure:1.0
+          ports:
+            - containerPort: 8082
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: medicure-service
+spec:
+  selector:
+    app: medicure
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8082
+  type: LoadBalancer  # Use "NodePort" if not on Cloud Provider
