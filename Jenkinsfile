@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/pravinkr11/medicure.git'
+                git 'https://github.com/cloudpost03/star-agile-health-care-master'
             }
         }
 
